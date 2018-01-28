@@ -30,7 +30,7 @@ type Prova = [(Int, Float)] -- numero e tempo gasto
 
 junta :: Concorrentes -> Prova -> [(Int,String,Float)]
 junta [] [] = []
-junta ((num1,nome):xs) ((num2, temp):ys) = if (num1 == num2) then (num1,nome,temp):junta xs ys else junta xs ys 
+junta ((num1,nome):xs) ((num2, temp):ys) = if (num1 == num2) then (num1,nome,temp):junta xs ys else junta xs ys
 
 concorrentesEx :: Concorrentes
 concorrentesEx = [(1,"Ana"), (2,"Sergio")]
@@ -73,7 +73,7 @@ doActor actor ((title,_,actores,ano,_):xs) = if (pertenceLista actor actores) th
 
 pertenceLista :: Actor -> [Actor] -> Bool
 pertenceLista _ [] = False
-pertenceLista n (x:xs) = if (n == x) then True else pertenceLista n xs 
+pertenceLista n (x:xs) = if (n == x) then True else pertenceLista n xs
 
 exFilme :: [Filme]
 exFilme = [("Shutter Island","Martin Scorsese",["Dicaprio"],2010,138),("O Lobo de Wall Street","Martin Scorsese",["Dicaprio","Jonah Hill"],2013,180)]
@@ -91,17 +91,18 @@ select :: LTree a -> [Bool] -> (Maybe a)
 select (Leaf x) [] = Just x
 select (Leaf x) list = Nothing
 select (Fork x y) [] = Nothing
-select (Fork _ y) (True:xs) = select y xs 
+select (Fork _ y) (True:xs) = select y xs
 select (Fork x _) (False:xs) = select x xs
 
 exTree :: Num a => LTree a
-exTree = Fork 
-           (Fork (Leaf 3) 
-                 (Fork (Leaf 2) (Leaf 1))) 
-           (Fork (Leaf 4) 
-                 (Fork (Leaf 12) 
+exTree = Fork
+           (Fork (Leaf 3)
+                 (Fork (Leaf 2) (Leaf 1)))
+           (Fork (Leaf 4)
+                 (Fork (Leaf 12)
                        (Fork (Leaf 10) (Leaf 5))))
 
 -- procura a 1 = Just [False,True,True]
 -- procura :: Eq a => LTree a -> a -> Maybe [Bool]
+
 
