@@ -26,7 +26,7 @@ amplitude lista = amplitudeAux (head lista) 0 lista where
     amplitudeAux min max [] = (max - min)
     amplitudeAux min max (x:xs) | x < min = amplitudeAux x max xs
                                 | x > max = amplitudeAux min x xs
-                                | otherwise = amplitudeAux min max xs 
+                                | otherwise = amplitudeAux min max xs
 
 -- parte :: [Int] -> ([Int],[Int])
 
@@ -50,10 +50,29 @@ data SReais = AA Double Double | FF Double Double
 ex1 :: SReais
 ex1 = Uniao (Uniao (AA 4.2 5.5) (AF 3.1 7.0)) (FF (-12.3) 30.0)
 
-pertence :: Double-> SReais -> Bool
-pertence n (Uniao (AA x w) (FF z y)) =  if (n > x && n <= x) then True else False
-pertence n (Uniao (AA x w) (AF z y)) =  if (n > x && n <= x) then True else False
-pertence n (Uniao (AA x w) (FA z y)) =  if (n > x && n < x) then True else False
-pertence n (Uniao (FF x w) (AF z y)) =  if (n >= x && n <= x) then True else False
-pertence n (Uniao (FF x w) (FA z y)) =  if (n >= x && n < x) then True else False
-pertence n (Uniao (AF x w) (FA z y)) =  if (n > x && n < x) then True else False
+pertence :: Double -> SReais -> Bool
+pertence n (Uniao (AA x w) (FF z y)) =  pertence n (AF x y)
+pertence n (Uniao (AA x w) (AF z y)) =  pertence n (AF x y)
+pertence n (Uniao (AA x w) (FA z y)) =  pertence n (AA x y)
+pertence n (Uniao (FF x w) (AF z y)) =  pertence n (FF x y)
+pertence n (Uniao (FF x w) (FA z y)) =  pertence n (FA x y)
+pertence n (Uniao (AF x w) (FA z y)) =  pertence n (AA x y)
+pertence n (AA x y)
+		| n <=x = False
+		| n >=y = False
+		|otherwise = True
+pertence n (FF x y)
+		| n==x = True
+		| n==y = True
+		| n<x = False
+		| n>y = False
+		|otherwise = True
+pertence n (AF x y)
+		| n<=x = False
+		| n> y = False
+		| otherwise = True
+pertence n (FA x y)
+		| n<x = False
+		| n==y = True
+		| n>y = False
+		|otherwise = True
