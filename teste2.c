@@ -42,20 +42,21 @@ int main(int argc, char *argv[]){
 	// é recebido como argumento o número de pares de pipes a executar ao mesmo tempo
 
 	int nPipes = atoi(argv[1]);
-    int fd[nPipes+1][2];
+    int fd[nPipes][2];
     int status;
-    char buffer[500];
+    char buffer[50];
+    char buffer1[50];
     int bytesRead = 1;
     pid_t childId;
 
-    for (int i = 1; i < atoi(argv[1])+1; i++) {
+    for (int i = 0; i < atoi(argv[1]); i++) {
 
         pipe(fd[i]);
-        childId = fork();
+        pid_t child1, child2;
 
         // tenho de passar o argv[2] ao filtro
 
-        if (childId == 0) {
+        if (!(child1 = fork())) {
 
             close(fd[i][0]);
             dup2(fd[i][1], 1);
@@ -64,40 +65,37 @@ int main(int argc, char *argv[]){
             execl("filtro.exe","filtro.exe",argv[2],NULL);
             exit(0);
         }
-/*
-        childId = fork();
 
-        // tenho de passar o output do filtro ao existe
+        else if (!(child2 = fork())) {
 
-        if (childId == 0) {
 
-            dup2(0, fd[i][0]);
-            close(0);
+            dup2(fd[i][0], 0);
+            close(fd[i][0]);
+
             dup2(fd[i][1], 1);
             close(fd[i][1]);
 
-            execl("existe","existe",argv[2],NULL);
+            execl("existe.exe","existe.exe",NULL);
             exit(0);
-        }
-*/
-        else {
 
-            sleep(1);
+        } else {
 
-            while (wait(&status) > 0) {
-                printf("Um filho terminou com exitstatus %d\n", status);
-
-            }
+			wait(&child1);
+        	wait(&child2);
 
             close(fd[i][1]);
 
-            bytesRead = read(fd[i][0], buffer, 1000);
+            bytesRead = read(fd[i][0], buffer, 20);
+
+            close(fd[i][0]);
 
             write(1, buffer, bytesRead);
 
         }
-        
+
     }
+
+    remove(argv[2]);
 
     return 0;
 }

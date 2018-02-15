@@ -15,8 +15,6 @@ ssize_t readLine(int fd, char* buffer, long maxBytes) {
     ssize_t i;
     char c;
 
-    int lines = 0;
-
     do {
 
         i = read(fd, &c, 1);
@@ -27,10 +25,8 @@ ssize_t readLine(int fd, char* buffer, long maxBytes) {
 
         }
 
-    } while (i > 0 && bytesRead < maxBytes && c != 'a');
+    } while (i > 0 && bytesRead < maxBytes && c != '\n');
 
-    buffer[bytesRead] = '\n';
-    bytesRead++;
     buffer[bytesRead] = '\0';
 
     // Devolver o numero de bytes lidos
@@ -38,26 +34,23 @@ ssize_t readLine(int fd, char* buffer, long maxBytes) {
 }
 
 
-int main(int argc, char *argv[]){
+int main() {
 
-    char array[] = "bcdefgabcdef\n";
-
-    remove(argv[1]);
-    int fd = open(argv[1], O_WRONLY | O_APPEND | O_CREAT);
-
-    write(fd, array, strlen(array));
-    close(fd);
-
-    int fd1 = open(argv[1], O_RDONLY);
+    char array[] = "bcdefga\n";
 
     char buffer[500];
-    int bytesRead = 1;
 
-    bytesRead = readLine(fd, buffer, 1000);
+    int bytesRead = readLine(0, buffer, 1000);
 
-    write(1, buffer, bytesRead);
+    char array1[] = "Não é igual\n";
+    char array2[] = "É igual\n";
 
-    close(fd1);
+    if ((strcmp(buffer,array)) != 0) {
+        write(1, array1, strlen(array1));
+        return bytesRead;
+    } else {
+        write(1, array2, strlen(array2));
+    }
 
     return bytesRead;
 }
