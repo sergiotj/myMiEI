@@ -13,21 +13,22 @@ int main(int argc, char *argv[]){
 	// um processo deve executar filtro e outro processo deve executar existe.
 	// é recebido como argumento o número de pares de pipes a executar ao mesmo tempo
 
-	int nPipes = argc;
+	int nPipes = argc-1;
     int fd[nPipes][2];
     int status;
-    pid_t pids[argc];
+    pid_t pids[argc-1];
+    time_t tempos[argc-1];
+    time_t end;
 
-    for (int i = 0; i < argc-1; i++) {
+    for (int i = 0; i < argc; i++) {
 
         pipe(fd[i]);
-        pid_t child = fork();
 
-        pids[i] = child;
+        pids[i] = fork();
 
         // tenho de passar o argv[2] ao filtro
 
-        if (child == 0) {
+        if (pids[i] == 0) {
 
             close(fd[i][0]);
             dup2(fd[i][1], 1);
@@ -37,14 +38,17 @@ int main(int argc, char *argv[]){
             exit(0);
 
         }
+
+        tempos[i] = time(NULL);
     }
 
     int ativos = argc-1;
+    double elapsed;
 
-    printf("processos ativos: %d\n", strlen(pids));
+    printf("processos ativos: %d\n", argc-1);
 
     while (1) {
-	    for (int i = 0; i < argc-1; i++) {
+	    for (int i = 0; i < argc; i++) {
 
             close(fd[i][1]);
 
@@ -52,10 +56,13 @@ int main(int argc, char *argv[]){
 
             int bytesRead = read(fd[i][0], buffer[i], 3);
 
-            if (bytesRead == 0 && pids[i] != 0) {
+            if (bytesRead == 0 && pids[i] > 0) {
 
             	kill(pids[i], SIGTERM);
-            	printf("Matou o processo com o pid %d\n", pids[i]);
+    	        end = time(NULL);
+        		elapsed = difftime(end, tempos[i]);
+
+            	printf("Matou o processo com o pid %d. Esteve %Lf ms ativo.\n", pids[i], (long double) elapsed);
             	pids[i] = 0;
             	ativos--;
 
@@ -70,7 +77,7 @@ int main(int argc, char *argv[]){
 	}
 
 	end:
-	printf("processos ativos: %d\n", strlen(pids));
+	printf("processos ativos: %d\n", ativos);
 	printf("O programa terminou porque não há mais nenhum processo a mandar OKs.\n");
     return 0;
 }
