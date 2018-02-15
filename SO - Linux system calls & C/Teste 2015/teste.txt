@@ -1,0 +1,5 @@
+Este ficheiro serve para
+testar uma funcao da
+disciplina de SO lecionada
+pelo Moura que eh dificil
+pra crlh
