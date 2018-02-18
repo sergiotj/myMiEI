@@ -80,7 +80,7 @@ char *Mystrcpy (char *dest, char source[]) {
     return dest;
 }
 
-int mystrcmp(char s1[], char s2[]) {
+int Mystrcmp(char s1[], char s2[]) {
     
     int i = 0;
     while(s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0') {
@@ -112,6 +112,68 @@ char *Mystrstr (char s1[], char s2[]) {
     if (s2[j] == '\0') return (s1+w);
     else return NULL;
 }
+
+void Mystrrev (char s[]) {
+
+    int i;
+    
+    for (i = 0; s[i] != '\0'; i++);
+    
+    int size = i-1;
+    char tmp[size];
+    
+    for (i = 0; s[i] != '\0'; i++) {
+        tmp[i] = s[i];
+    }
+    
+    int j = 0;
+    for (i = size; i >= 0; i--) {
+        s[j] = tmp[i];
+        j++;
+    }
+}
+
+void strnoV (char t[]){
+    
+    int j = 0;
+    int i = 0;
+    
+    while (t[i] != '\0') {
+        
+        if (t[i] != 'A' && t[i] != 'E' && t[i] != 'I' && t[i] != 'O' && t[i] != 'U' && t[i] != 'a' &&
+        t[i] != 'e' && t[i] != 'i' && t[i] != 'o' && t[i] != 'u') {
+            
+            t[j] = t[i];
+            j++;
+            
+        }
+        i++;
+    }
+    t[j]='\0';
+}
+
+void truncW (char t[], int n){
+    int i;
+    int j=0; 
+    int w = n;
+    
+    for (i=0; t[i] != '\0'; i++){
+        if (t[i] == ' ') {
+            n = w;
+            t[j] = t[i];
+            j++;   
+        }
+        else if (n != 0) {
+            t[j] = t[i];
+            n--;
+            j++;
+        }
+    }
+    t[j]='\0';
+}
+
+
+
 
 
 int main () {
