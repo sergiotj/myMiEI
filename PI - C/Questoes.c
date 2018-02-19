@@ -152,12 +152,13 @@ void strnoV (char t[]){
     t[j]='\0';
 }
 
-void truncW (char t[], int n){
+void truncW (char t[], int n) {
     int i;
-    int j=0; 
+    int j = 0; 
     int w = n;
     
-    for (i=0; t[i] != '\0'; i++){
+    for (i = 0; t[i]; i++) {
+        
         if (t[i] == ' ') {
             n = w;
             t[j] = t[i];
@@ -169,8 +170,119 @@ void truncW (char t[], int n){
             j++;
         }
     }
-    t[j]='\0';
+    t[j] = '\0';
 }
+
+char charMaisfreq (char s[]) {
+    int i, j;
+    char m = s[0];
+    int mquantos = 0;
+    int contador;
+    
+    for(i = 0; s[i]; i++) {
+        contador = 0;
+        for (j = 0; s[j]; j++) {
+            if (s[j] == s[i]) contador++;
+        }
+        
+        if (contador > mquantos) {
+            mquantos = contador;
+            m = s[i];
+        }
+    }
+    
+    return m;
+}
+
+int iguaisConsecutivos (char s[]) {
+    int i = 0;
+    int maior = 0;
+    int contador;
+    int w;
+    
+    while (s[i]) {
+        
+        contador = 1;
+        w = i;
+        while (s[i] == s[i+1]) {
+            contador++;
+            i++;
+        }
+        
+        if (contador > maior) {
+            maior = contador;
+        }
+        
+        i = w;
+        i++;
+       
+    }
+    
+    return maior;
+}
+
+int difConsecutivos (char s[]) {
+    int i;
+    int maior = 0;
+    int j=0;
+    int contador = 0;
+    int g=0;
+    
+    for (i = 0; s[i]; i++) {
+        j = i-1;
+        contador = 1;
+        while (j > g && s[j] != s[i]) {
+            contador++;
+            j--;   
+        }
+        if (contador > maior) maior = contador;
+        g = j;
+        }
+        
+    return maior;
+}
+
+int maiorPrefixo (char s1 [], char s2 []) {
+    int i = 0;
+    int j = 0;
+    int comprimento = 0;
+    
+    while (s1[i] == s2[j]) {
+        comprimento++;
+        i++;
+        j++;
+    }
+    
+    return comprimento;
+}
+
+int maiorSufixo (char s1 [], char s2 []) {
+    int i;
+    int j;
+    int comprimento = 0;
+    
+    for (i = 0; s1[i]; i++);
+    for (j = 0; s2[j]; j++);
+    
+    i--;
+    j--;
+    
+    while (s1[i] == s2[j]) {
+        comprimento++;
+        i--;
+        j--;
+    }
+    
+    return comprimento;
+}
+
+
+
+
+
+
+
+
 
 
 
