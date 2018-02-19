@@ -276,11 +276,176 @@ int maiorSufixo (char s1 [], char s2 []) {
     return comprimento;
 }
 
+int sufPref (char s1[], char s2[]) {
+    
+    int i = 0;
+    int j;
+    int maior = 0;
+    
+    while (s1[i]) {
+        
+        j = 0;
+        while (s1[i] == s2[j] && s1[i] && s2[j]) {
+            j++;
+            i++;
+        }
+        
+        if (s1[i] != '\0') j = 0;
+        
+        if (j > maior) maior = j;
+        i++;
+    }
+    
+    return maior;
+}
+
+int sufPref (char s1[], char s2[]) {
+    
+    int i = strlen(s1) - 1;
+    int j = 0;
+    int notFound = 0;
+    
+    while (s1[i] && s2[j]) {
+        
+        printf("\n%c %c\n", s1[i], s2[j]);
+        printf("%d %d ------------\n", i, j);
+        
+        int k = strlen(s1) - 1, l = j, notFound = 0;
+        for (; k >= i && l >= 0; k--, l--) {
+            
+            printf("%c %c\n", s1[k], s2[l]);
+            
+            if (s1[k] != s2[l]) {
+                
+                notFound = 1;
+                printf("Not equal\n\n");
+                break;
+            }
+        }
+        
+        if (notFound == 0) {
+            return j + 1;
+        }
+            
+        i--;
+        j++;
+    }
+    
+    return 0;
+}
 
 
+int contaPal (char s[]) {
+    
+    int i = 0;
+    int palavras = 0;
+    
+    while (s[i]) {
+        if(s[i] != ' ' && (s[i+1] == ' ' || s[i+1] == '\0')) {
+            palavras++;
+        }
+        i++;
+    }
+    
+    return palavras;
+}
 
+int contaVogais (char t[]) {
+    int i = 0,j = 0;
+    while (t[i] != '\0') { 
+        if ((t[i] == 'a') || (t[i] == 'e') || (t[i] == 'i') || (t[i] == 'o') || (t[i] == 'u') || (t[i] == 'A') 
+        || (t[i] == 'E') || (t[i] == 'I') || (t[i] == 'O') || (t[i] == 'U')) j++;;
+        i++;
+    }
+    return j;
+}
 
+int contida (char a[], char b[]) {
+    
+    int i = 0;
+    int found = 0;
+    int j;
+   
+    while (a[i]) {
+        
+        j = 0;
+        found = 0;
+        while (b[j]) {
+            if (a[i] == b[j]) {
+                found = 1;
+                break;
+            }
+            j++;
+        }
+        
+        if (found == 0) return 0;
+        i++;
+        
+    }
+    
+    return 1;
+    
+}
 
+int palindroma (char s[]) {
+    
+    int i = 0;
+    int j = strlen(s) - 1;
+    
+    while (s[i]) {
+        
+        if (s[i] == s[j]) {
+            i++;
+            j--;
+        }
+        
+        else return 0;
+    }
+    
+    return 1;
+}
+
+int remRep (char texto[]) {
+
+    int i = 0;
+    int j = 0;
+        
+    while (texto[i]) {
+        
+        if (texto[i] != texto[i+1]) {
+            texto[j] = texto[i];
+            j++;
+        }
+        
+        i++;
+        
+    }
+    
+    texto[j] = '\0';
+    
+    return j;
+
+}
+
+int limpaEspacos (char texto[]) {
+    int i = 0;
+    int j = 0;
+    
+    while (texto[i]) {
+        
+        if (texto[i] != ' ' || texto[i+1] != ' ') {
+            texto[j] = texto[i];
+            j++;
+        }
+        
+        i++;
+    
+    }
+    
+    texto[j] = '\0';    
+    
+    return j;
+}
 
 
 
