@@ -621,8 +621,135 @@ int maxCresc (int v[], int N) {
        return maior;
 }
 
+int elimRep (int v[], int N) {
+    
+    int i = 0;
+    int j = 0;
+    int w;
+    int flag;
+    int valor;
+        
+    while (N >= 0) {
+        w = i;
+        flag = 0;
+        valor = v[i];
+        for(i = 0; i < j;i++) {
+            if (valor == v[i]) flag = 1; 
+        }
+        
+        i = w;
+        
+        if (flag != 1) {
+            v[j] = v[i];
+            j++;
+        }
+        
+        i++;
+        N--;
+    }   
+    return j;
+}
+
+int elimRepOrd (int v[], int N) {
+    
+    int i = 1;
+    int j = 1;
+    
+    while (N > 1) {
+        if (v[i] != v[i-1]){
+            v[j] = v[i];  
+            j++;
+        }
+        i++;
+        N--;
+    }
+    
+    return j;
+}
+
+int comunsOrd (int a[], int na, int b[], int nb){
+       
+   int i = 0;
+   int j = 0;
+   int contador = 0;
+   
+   while (i < na && j < nb) {
+       if (a[i] == b[j]) {
+           contador++;
+           i++;
+           j++;
+       }
+       else if(a[i] > b[j]) {
+           j++;
+       }
+       
+       else i++;
+   }
+   
+   return contador;
+}
 
 
+int comuns (int a[], int na, int b[], int nb){
+    
+    int i = 0;
+    int j = 0;
+    int contador = 0;
+    
+    while (i < na) {
+        
+        j = 0;
+        
+        while (j < nb) {
+            if (a[i] == b[j]) {
+                contador++;
+                break;
+            }
+            j++;
+        }
+        
+        i++;
+        
+    }
+
+    return contador;
+}
+
+int minInd (int v[], int n) {
+
+    int menor = 1000;
+    int menorind = 0;
+    int i = 0;
+
+    while (n > 0) {
+        
+        if (v[i] < menor) {
+            menor = v[i];
+            menorind = i;
+        }
+        
+        i++;
+        n--;
+    }
+
+   return menorind;
+}
+
+void somasAc (int v[], int Ac [], int N){
+    
+    int i = 0;
+    int soma = 0;
+    
+    while (N > 0) {
+        
+        soma += v[i];
+        Ac[i] = soma;
+        N--;
+        i++;
+    }
+    
+}
+   
 
 
 
