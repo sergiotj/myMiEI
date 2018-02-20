@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 
 int bitsUm (unsigned int n) {
 
@@ -299,7 +300,7 @@ int sufPref (char s1[], char s2[]) {
     return maior;
 }
 
-int sufPref (char s1[], char s2[]) {
+int sufPref1 (char s1[], char s2[]) {
     
     int i = strlen(s1) - 1;
     int j = 0;
@@ -595,6 +596,29 @@ int maisFreq (int v[], int N){
     }
            
     return valor;       
+}
+
+int maxCresc (int v[], int N) {
+    
+    int comp;
+    int maior = 0;
+    int i = 0;
+
+       while (N > 0) {
+            comp = 1;           
+            while (v[i+1] >= v[i]) {
+                comp++;
+                i++;
+                N--;
+            }
+            
+            if (comp > maior) maior = comp;
+            
+            i++;
+            N--;
+       }
+       
+       return maior;
 }
 
 
