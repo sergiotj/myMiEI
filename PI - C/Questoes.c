@@ -447,6 +447,158 @@ int limpaEspacos (char texto[]) {
     return j;
 }
 
+void insere (int v[], int N, int x) {
+    
+    while (N > 0 && v[N-1] > x) {
+        v[N] = v[N-1];
+        N--;
+    }
+    
+    v[N] = x;
+}
+
+void merge (int r [], int a[], int b[], int na, int nb) {
+       
+   int i = 0;
+   int j = 0;
+   int l = 0;
+   
+   while (i < na && j < nb) {
+       
+       if (a[i] <= b[j]) {
+           
+           r[l] = a[i];
+           i++;
+           l++;
+       }
+       else {
+           
+           r[l] = b[j];
+           j++;
+           l++;
+        }
+   }
+    // se o array A já chegou ao fim    
+    if (i == na) {
+        while (j < nb) {
+            r[l] = b[j]; l++; j++;
+        }
+    }
+    
+    // se o array B já chegou ao fim 
+    if (j == nb) {
+        while (i < na) {
+            r[l] = a[i]; l++; i++;
+        }
+    }
+}
+
+int crescente (int a[], int i, int j) {
+    
+    while (i < j) {
+        if (a[i] > a[i+1]) return 0;
+        i++;
+    }
+       
+       return 1;
+}
+
+int retiraNeg (int v[], int N){
+    int i = 0;
+    int j = 0;
+    
+    while (N > 0) {
+        if (v[i] > 0) {
+            v[j] = v[i];
+            j++;
+        }
+        N--;
+        i++;
+    }
+    
+    return j;
+}
+
+int menosFreq (int v[], int N){
+    
+    int guardado = INT_MAX;
+    int indice;
+    int i = 0;
+    int valor = 0;
+    
+    int contador;
+    
+    while (N > 0) {
+        
+        contador = 0;
+        while (v[i] == v[i+1]) {
+            contador++;
+            i++;
+            N--;
+        }
+        
+        if (contador < guardado) {
+            guardado = contador;
+            indice = i;
+            valor = v[i];
+        }
+        else if (contador == guardado) {
+            if (i < indice) {
+                guardado = contador;
+                indice = i;
+                valor = v[i];
+            }
+        }
+        
+        i++;
+        N--;
+        
+    }
+           
+    return valor;       
+}
+
+int maisFreq (int v[], int N){
+    
+    int guardado = 0;
+    int indice;
+    int i = 0;
+    int valor = 0;
+    
+    int contador;
+    
+    while (N > 0) {
+        
+        contador = 0;
+        while (v[i] == v[i+1]) {
+            contador++;
+            i++;
+            N--;
+        }
+        
+        if (contador > guardado) {
+            guardado = contador;
+            indice = i;
+            valor = v[i];
+        }
+        else if (contador == guardado) {
+            if (i < indice) {
+                guardado = contador;
+                indice = i;
+                valor = v[i];
+            }
+        }
+        
+        i++;
+        N--;
+        
+    }
+           
+    return valor;       
+}
+
+
+
 
 
 
