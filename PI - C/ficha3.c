@@ -112,6 +112,17 @@ int main() {
 
     int aquadrado[10];
     quadrados(aquadrado, N);
+    int i = 0;
+    int n = N;
+
+    printf("O array quadrados é: ");
+    while (i < n) {
+        printf("%d ", aquadrado[i]);
+        i++;
+    }
+
+    printf("\n");
+
 
     char myName[] = "Sergio";
     printf("O teu nome tem %d vogais.\n", contaV(myName));
