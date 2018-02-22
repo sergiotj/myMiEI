@@ -4,6 +4,71 @@
 #include <stdlib.h>
 #include <limits.h>
 
+/*
+
+// maior número
+int main() {
+
+    int x = 1;
+    int maior = 0;
+
+    while (x != 0) {
+
+        scanf("%d", x);
+
+        if (x > maior) maior = x;
+
+    }
+
+    return maior;
+
+}
+
+// média
+int main () {
+
+    int x = 1;
+    int media = 0;
+    int soma = 0;
+    int i = 0;
+
+    while (x != 0) {
+
+        scanf("%d", x);
+
+        soma += x;
+        i++;
+
+    }
+
+    return (soma/i);
+}
+
+// segundo maior elemento
+int main () {
+
+    int x = 1;
+    int maior = 0;
+    int segundo = 0;
+
+    while (x != 0) {
+
+        scanf("%d", x);
+        if (x > maior) {
+            segundo = maior;
+            maior = x;
+        }
+
+        if (x < maior && x > segundo) {
+            segundo = x;
+        }
+
+    }
+
+}
+
+*/
+
 int bitsUm (unsigned int n) {
 
     int num;
