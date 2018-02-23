@@ -1,0 +1,16 @@
+É só criar o ficheiro lixo.txt e lixo1.txt e executar os seguintes comandos.
+O uso dos ficheiros lixo é para redirecionar o stdout para os ficheiros... para não encher o terminal :)
+
+$ time ./ex3 1 < 10mb > lixo.txt
+
+real    1m24.498s
+user    0m8.171s
+sys     1m11.562s
+
+$ time ./ex3 1024 < 10mb > lixo1.txt
+
+real    0m0.234s
+user    0m0.000s
+sys     0m0.155s
+
+São evidentes as diferenças de desempenho.

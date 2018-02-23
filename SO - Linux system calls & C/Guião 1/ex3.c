@@ -2,7 +2,7 @@
 #include <unistd.h> /* chamadas ao sistema: defs e decls essenciais */
 #include <fcntl.h> /* O_RDONLY, O_WRONLY, O_CREAT, O_* */
 #include <string.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 
 /*
@@ -15,17 +15,14 @@
 
 int main(int argc, char* argv []) {
 
-    int fd;
-    remove (argv[1]);
-    fd = open(argv[1], O_CREAT | O_WRONLY | O_APPEND);
-    int writtenBytes = 0;
+    char buffer[10000];
+    int bytesALer = atoi(argv[1]);
 
-    while (writtenBytes < 1000000) {
-        write(fd, "abcdefghij", 10);
-        writtenBytes++;
+    while (read(0, buffer, bytesALer) > 0) {
+
+        write(1, buffer, strlen(buffer));
+
     }
-
-    close(fd);
 
     return 0;
 
