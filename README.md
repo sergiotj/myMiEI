@@ -15,7 +15,7 @@
 
 * **3rd year**:
   - [Software Systems Development & Databases](https://github.com/vitorindeep/schedule-management-system) - a Java application that manages the schedule of practical classes in a given major.
-  - [Software Labs IV](https://github.com/vitorindeep/babysitting-system) - a babysitting system developed for the course of LI4, entirely with Microsoft Tools.
+  - [Software Labs IV](https://github.com/vitorindeep/babysitting-system) - a babysitting system developed entirely with Microsoft Tools.
 
 ## Contributors
 
