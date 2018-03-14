@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 /*
 
@@ -16,9 +17,34 @@ int main() {
 	double elapsed;
 	tStart = clock();
 
+    int i = 1;
+    int prime = 1;
+    int isPrime = 1;
+
+    while (i != 10003) {
+
+        isPrime = 1;
+        for (int j = 2; j <= sqrt(prime); j++) {
+
+            if (prime%j == 0) {
+                isPrime = 0;
+                break;
+            }
+        }
+
+        if (isPrime == 1) {
+            prime++;
+            i++;
+        }
+
+        else prime++;
+
+    }
+
+    prime--;
 
 
-    printf("Retornou o número %d.\n", result);
+    printf("Retornou o número %d.\n", prime);
 
     tEnd = clock();
     elapsed = (tEnd - tStart) * 1000.0 / CLOCKS_PER_SEC;
