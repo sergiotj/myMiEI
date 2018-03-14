@@ -31,7 +31,7 @@ int main() {
 
     }
 
-    printf("%d.\n", sum);
+    printf("O resultado da soma dos elementos de Fibonacci pares até quatro milhões é %d.\n", sum);
     return sum;
 
 }
