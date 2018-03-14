@@ -2,6 +2,9 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 /*
 
@@ -38,11 +41,50 @@ int main() {
 	double elapsed;
 	tStart = clock();
 
+    int n;
+    char str[1000];
+    int numbers[1000];
+    int counter = 0;
+
+    int fd = open("euler8Numbers", O_RDONLY);
+    char c;
+    while ((n = read(fd, &c, 1)) > 0) {
+        str[counter] = c;
+        counter++;
+    }
 
 
-    printf("Retornou o número %d.\n", prime);
+    int i = 0;
+    while (i < 1000) {
+        numbers[i] = str[i] - 48;
+        i++;
+    }
 
+    int j = 0, w;
+    long product, max = 0;
+
+    while (j < 1000) {
+
+        i = 0, product = 1;
+
+        w = j;
+
+        while (i < 13) {
+
+            product *= numbers[j];
+            i++;
+            j++;
+        }
+
+        j = w;
+        j++;
+
+        if (product > max) max = product;
+    }
+
+    printf("O programa retornou %ld.\n", max);
     tEnd = clock();
+
     elapsed = (tEnd - tStart) * 1000.0 / CLOCKS_PER_SEC;
     printf("O programa demorou %g ms. \n", elapsed);
 
