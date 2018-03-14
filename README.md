@@ -1,4 +1,4 @@
-# UMinho
+# Universidade do Minho
 
 ![uminho](http://www4.di.uminho.pt/~jmf/IMAGES/um_eeng.gif)
 
