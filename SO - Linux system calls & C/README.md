@@ -1,6 +1,7 @@
 # Sistemas Operativos
 
 ![N|Solid](https://slick.pl/wp-content/uploads/2012/06/linux.png)
+
 Sistema Operativo é um programa ou um conjunto de programas cuja função é gerir os recursos do sistema.
 
 ## Estrutura
