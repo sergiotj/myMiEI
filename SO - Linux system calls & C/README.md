@@ -119,3 +119,63 @@ Os critérios utilizados são os seguintes:
  - Fácil de codificar;
  - Tempo de espera muito elevado;
  - Favorece os processos CPU bound.
+ - Escalonamento cooperativo
+
+###### Shortest-Job-First (SJF)
+  - Associam a cada processo uma estimativa do próximo CPU burst;
+  - Atribui ao CPU o processo com menor CPU burst. Se for igual, usa-se FCFS;
+  - É praticamente ótimo mas é difícil saber a duração do próximo CPU burst;
+  - Para longa duração, pode-se usar o process limit que o user submete (os users são convidados a estimar o limite de tempo - se o processo demorar mais que isso tem de ser resubmetido);
+  - Não pode ser implementado em short-term CPU scheduling (quando cada burst dura milissegundos) porque não há maneira de saber a duração de bursts muito pequenos;
+  - Pode ser cooperativo ou preemptive. No caso de ser o último, é interrompido quando chega um processo com mais prioridade;
+  - Conduz a **Starvation**.
+
+###### Preemptive Priority
+  - Caso mais geral do SJF;
+  - Inteiro atribuído ao processo;
+  - Pode ser preemptive ou cooperativo;
+  - Tal como o SJF conduz a **Starvation**. Ou seja, um processo com prioridade reduzida pode demorar demasiado tempo a ser corrido. Por exemplo, quando desmontaram o IBM 7094 no MIT em 1973 descobriram um processo de baixa prioridade que ainda não tinha sido corrido e tinha sido submetido 6 anos antes;
+  - A solução é atribuir prioridade aos processos mais antigos à medida que o tempo passa.
+
+###### Round Robin
+  - Feito para sistemas de partilha de tempo;
+  - É semelhante ao FCFS só que tem preemption;
+  - É gerado um time quantum (de 10 a 100 milisegundos) e a ready queue torna-se circular. O CPU roda por todos os processos e dá a todos um tempo correspondente a um quantum;
+
+Pode acontecer um de dois casos:
+  - O processo acaba antes do fim do quantum sendo que ele próprio liberta o CPU e o escalonador segue para o próximo processo;
+  - O quantum chega ao fim e é gerada uma interrupção sendo que o estado do processo é guardado e este é colocado no final da waiting queue;
+
+Se o quantum for elevado, comporta-se como FCFS. Se o quantum for reduzido, o overhead correspondente à troca de processos acaba por tomar conta do CPU e cada processo passa pouco tempo no CPU.
+O SJF requer alguns cálculos e, por isso, o tempo de resposta do Round Robin é normalmente melhor.
+
+###### Multilevel Feedback-Queue
+  - Há várias queues de ready com diferentes níveis de prioridade;
+
+Se um processo usa demasiado CPU, então este é movido para uma queue com menos prioridade; Pelo contrário, processos que usam muito I/O e que são interativos, são movidos para a queue 0.
+Em relação ao escalonador, só quando todos os processos da queue 0 terminam é que este avança para a queue 1.
+Para evitar starvation, os processos que estão numa queue com menos prioridade há mais tempo, passam para queues com mais prioridade.
+Importante frisar também que se um processo da queue 1 estiver a executar e se entretanto chega um da queue 0, há desafetação forçada.
+Na prática, um processo ready é colocado na queue 0 e é-lhe dado um certo quantum. Se ele não termina dentro desse quantum, é movido para a queue 1 com um quantum maior e assim sucessivamente até chegar à queue 2 (tipicamente aqui é FCFS).
+Assim, na queue 0 e na queue 1, temos um misto de Round Robin com SJF (RR dentro da própria queue e SJF quando está a ser executada a queue 1 e chega um da queue 0).
+
+##### Níveis de Escalonamento
+**Nível 0** - despacha o que está na ram;
+**Nível 1** - decide que processos são multiprogramados;
+**Nível 2** - não deixa criar processos.
+
+À medida que o CPU fica sobrecarregado, o nível de escalonamento aumena.
+
+### Sincronização de Processos
+#### Race Condition
+Race Condition é quando vários processos alteram os mesmos dados concorrentemente. Por exemplo, imaginemos dois processos: um altera o valor da variável x para 1 e outro altera o valor da variável x para 0. Então, se os processos forem executados concorrentemente, o valor final da variável x irá depender da ordem pela qual executamos os processos.
+Apresentam-se, de seguida, algumas soluções para o problema.
+
+#### Problema da Região Crítica
+
+#### Semáforos
+
+## DeadLocks
+
+## Memória Central
+## Memória Virtual
