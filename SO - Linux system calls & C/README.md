@@ -52,7 +52,7 @@ Apesar de serem essencialmente utilizados para matar processos, a maioria dos si
 Em sistemas UNIX existe uma hierarquia de processos. Todos os processos pertencem a uma mesma árvore e cada processo forma um grupo com os processos filho criados e estes ficam sempre associados ao processo pai.
 Quando processo pai morre antes dos filhos, estes são herdados pelo processo com pid = 1, init.
 
-#### Estados
+### Estados dos Processos
 **Running** - Quando um processo se encontra neste estado, significa que está a utilizar o CPU;
 
 **Ready** - Neste estado, o processo está à espera que os restantes processos acabem de correr para fazer uso do CPU;
@@ -99,8 +99,9 @@ Por outro lado, o escalonamento cooperativo traz menos custos de manutençào (o
 
 ###### **Vantagens e Desvantagens**
 
-Vantagem do preemptive - podemos manter a correr vários processos e interagir com eles todos...
-Desvantagem do preemptive - há um overhead adicional dado que para trocar de processo é preciso preservar o estado. Aumenta também a complexidade do scheduler e do hardware já que é preciso um timer...
+**Vantagem do preemptive** - podemos manter a correr vários processos e interagir com eles todos...
+
+**Desvantagem do preemptive** - há um overhead adicional dado que para trocar de processo é preciso preservar o estado. Aumenta também a complexidade do scheduler e do hardware já que é preciso um timer...
 
 Contudo, se o escalonamento não for preemptive, é impossível ter mais do que um processo a correr simultaneamente. Num sistema de janelas como o Windows em que a cada janela está associado um processo seria impossível, por exemplo, manter o Google Chrome aberto e o Spotify.
 O MS-DOS, até ao Windows 95, usava escalonamento cooperativo. Nessa altura foi então introduzido o preemptive.
