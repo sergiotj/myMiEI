@@ -16,10 +16,10 @@ Divide-se em duas componentes: User Mode e Kernel Mode.
 
 ### User Mode
 É a camada mais superficial. Tem acesso apenas a um conjunto limitado de instruções às quais damos o nome de system calls e que são disponibilizadas pelo kernel. Além disso, programas e interfaces gráficas fazem, habitualmente, também parte deste modo.
-As system calls são assim uma forma de comunicação entre o kernel mode e o user mode. Permitem um maior conforto uma vez que é o próprio SO que se responsabiliza por gerir os recursos mas também mantém o sistema e o hardware da máquina seguros a programas intrusivos e invasivos. Ou seja, uma vez que só o sistema operativo é que tem comunicação direta com os componentes físicos, torna-se impossível que um software maliciosa consiga alterar o comportamento do relógio do processador.
+As system calls são assim uma forma de comunicação entre o kernel mode e o user mode. Permitem um maior conforto uma vez que é o próprio SO que se responsabiliza por gerir os recursos, mas também mantém o sistema e o hardware da máquina seguros a programas intrusivos e invasivos. Ou seja, uma vez que só o sistema operativo é que tem comunicação direta com os componentes físicos, torna-se impossível que um software malicioso consiga alterar o comportamento do relógio do processador.
 
 ## Processos
-Um proceso contém a informação sobre um programa que está em execução (registos, variáveis, etc...) para que este possa ser parado e recuperado sempre que seja necessário o que se torna essencial no escalonamento de processos.
+Um processo contém a informação sobre um programa que está em execução (registos, variáveis, etc...) para que este possa ser parado e recuperado sempre que seja necessário o que se torna essencial no escalonamento de processos.
 Para armazenar a informação sobre os processos, o SO utiliza uma tabela de processos com uma entrada por processo. Cada entrada tem o nome de "Bloco de controlo de processo" e é uma estrutura necessária para o tal escalonamento uma vez que guarda toda a informação para recuperar a execução de um programa como os valores dos registos, stack pointers, pid, etc...
 
 ### Criação de Processos
@@ -30,12 +30,12 @@ Quando o sistema operativo arranca, são criados alguns processos (daemons na su
 Novos processos podem ser criados por outros processos. É algo útil quando existe trabalho que pode ser facilmente executado por processos independentes.
 
 #### Pedido do Utilizador
-O utilizador pode criar novos processos utilizando uma linha de comandos ou com uma GUI.
+O utilizador pode criar processos utilizando uma linha de comandos ou com uma GUI.
 
 #### Batch
-Nos sistemas mais clássicos, uma batch era um computador central que tinha a ele ligado vários terminais e era onde os processos ou jobs eram escalonados por uma simples fila de espera. Geralmente, um processo é criada por uma tarefa.
+Nos sistemas mais clássicos, uma batch era um computador central que tinha a ele ligado vários terminais e era onde os processos ou jobs eram escalonados por uma simples fila de espera. Geralmente, um processo é criado por uma tarefa.
 Em Sistemas UNIX, é possível criar um novo processo através da system call: fork().
-Quando é invocada esta função, é criado um processo idêntico ao que invocou a função (memória e descritores)... No entanto, cada um dos processos tem o seu próprio espaço de endereçamento o que quer dier que, após o fork(), as modificações não são partilhadas.
+Quando é invocada esta função, é criado um processo idêntico ao que invocou a função (memória e descritores)... No entanto, cada um dos processos tem o seu próprio espaço de endereçamento o que quer dizer que, após o fork(), as modificações não são partilhadas.
 
 ### Terminação de Processos
 
@@ -65,8 +65,8 @@ Para cada estado existe uma fila de espera na qual os processos são colocados �
 ### Escalonamento de Processos
 Um processo é executado até ter de esperar (normalmente request de I/O).
 Num sistema simples, o CPU fica numa espera ativa sem fazer nada e, portanto, desperdiça tempo.
-Por exemplo, num sistema de monoprogramação, um processo tem direito ao CPU enquantos os seguintes ficam em espera ativa ou seja, testam consecutivamente se o CPU se encontra livre (o chamado polling)....
-A ideia é introduzir multiprogramação, ou seja, utilizar este tempo de forma produtiva. Portanto, vários processos são mantidos na memória ao mesmo tempo e quando um tem de esperar (ex: I/O), o SO tira o CPU desse processo e dá a outro. Isto torna-se contínuo: de cada ve que um processo tem de esperar, o CPU é atribuído a outro processo.
+Por exemplo, num sistema de monoprogramação, um processo tem direito ao CPU enquanto os seguintes ficam em espera ativa ou seja, testam consecutivamente se o CPU se encontra livre (o chamado polling)....
+A ideia é introduzir multiprogramação, ou seja, utilizar este tempo de forma produtiva. Portanto, vários processos são mantidos na memória ao mesmo tempo e quando um tem de esperar (ex: I/O), o SO tira o CPU desse processo e dá a outro. Isto torna-se contínuo: de cada vez que um processo tem de esperar, o CPU é atribuído a outro processo.
 
 #### Burst-Cycle
 Se os processos estão constantemente à espera de I/O, então nesse período não estão a ser feitos cálculos importantes. Porém, quando o processo trata de fazer cálculos, então é mantido a níveis muito reduzidos.
@@ -95,7 +95,7 @@ Escalonamento preemptive é quando um processo possui o CPU mas este é-lhe reti
 
 Escalonamento cooperativo permite que um processo execute até, deliberadamente, libertar o CPU (situação 1 e 4). Existem algumas plataformas de hardware que apenas funcionam com este tipo de escalonamento uma vez que não têm CPU timer que é necessário para preemptive.
 
-Por outro lado, o escalonamento cooperativo traz menos custos de manutençào (overhead) já que não é necessário tratar da troca de processos nem de guardar o estado de um processo e portanto, a complexidade do escalonador é assim reduzida.
+Por outro lado, o escalonamento cooperativo traz menos custos de manutenção (overhead) já que não é necessário tratar da troca de processos nem de guardar o estado de um processo e portanto, a complexidade do escalonador é assim reduzida.
 
 ###### **Vantagens e Desvantagens**
 
@@ -141,7 +141,7 @@ Os critérios utilizados são os seguintes:
 ###### Round Robin
   - Feito para sistemas de partilha de tempo;
   - É semelhante ao FCFS só que tem preemption;
-  - É gerado um time quantum (de 10 a 100 milisegundos) e a ready queue torna-se circular. O CPU roda por todos os processos e dá a todos um tempo correspondente a um quantum;
+  - É gerado um time quantum (de 10 a 100 milissegundos) e a ready queue torna-se circular. O CPU roda por todos os processos e dá a todos um tempo correspondente a um quantum;
 
 Pode acontecer um de dois casos:
   - O processo acaba antes do fim do quantum sendo que ele próprio liberta o CPU e o escalonador segue para o próximo processo;
@@ -167,7 +167,7 @@ Assim, na queue 0 e na queue 1, temos um misto de Round Robin com SJF (RR dentro
 
 **Nível 2** - não deixa criar processos.
 
-À medida que o CPU fica sobrecarregado, o nível de escalonamento aumena.
+À medida que o CPU fica sobrecarregado, o nível de escalonamento aumenta.
 
 ### Sincronização de Processos
 #### Race Condition
@@ -199,12 +199,12 @@ Por isso, surge uma nova definição de semáforo em que este deixa de apenas um
 
 ### Condições para que surja um deadlock:
   - Existir um recurso que não ser partilhado e este está a user usado por um outro processo. Esperam os processos que precisam desse recurso;
-  - Existir um recurso que está a usar um recurso mas espera por recursos adicionais que estão a ser usados por outros processos;
+  - Existir um recurso que está a usar um recurso, mas espera por recursos adicionais que estão a ser usados por outros processos;
   - Existir um processo que está à espera de um recurso a ser usado por outro processo que, por sua vez, está à espera de um recurso... <-- Espera circular!!
 
 ### Como lidar com os deadlocks:
   - Assegurar que os deadlocks nunca acontecem;
-  - Permitir que os deadlocks aconteçam mas detetá-los e tratá-los;
+  - Permitir que os deadlocks aconteçam, mas detetá-los e tratá-los;
 
 ## Memória Central
 Os vários processos devem poder ser executados ao mesmo tempo e, para isso, é preciso dividir a memória entre eles. À medida que os processos entram no sistema, são inseridos numa queue e ficam à espera que o sistema operativo lhes atribua memória.
@@ -215,13 +215,13 @@ Por exemplo: se surge um processo com prioridade elevada, os processos são "swa
 
 ### Alocação Contígua
 É uma estratégia mais antiga e simples. O sistema operativo vê a quantidade de memória que o próximo processo precisa e vê quanto tem de RAM disponível. Se tiver suficiente, aloca-a de maneira a que fique contígua á que já estava a ser utilizada por outros processos. Se não tiver suficiente, o processo é adicionado a uma queue.
-À medida que os processos terminam, libertam memória para outros. O que acontece é que muitas vezes deixam "buracos" na memória que podem ser pequenos dwmais para o próximo processo da queue e, por isso, o novo processo terá de esperar até que o espaço suficiente fique disponível. Isto pode provocar uma fragmentação externa, que ocorre quando existe espaço livre na memória mas dividido em muitos buracos pequenos o que torna impossível a alocação contígua.
+À medida que os processos terminam, libertam memória para outros. O que acontece é que muitas vezes deixam "buracos" na memória que podem ser pequenos demais para o próximo processo da queue e, por isso, o novo processo terá de esperar até que o espaço suficiente fique disponível. Isto pode provocar uma fragmentação externa, que ocorre quando existe espaço livre na memória, mas dividido em muitos buracos pequenos o que torna impossível a alocação contígua.
 
 ### Segmentação
 É a divisão da memória em segmentos/secções. Os seus endereços lógicos incluem um valor que identifica o segmento e o offset: (<segment-number, offset>). Este tuplo é traduzido por um endereço de memória. Os segmentos também podem ser usados para implementar memória virtual, em que ficam associados a uma flag que indica se este está presente ou não na memória física.
 
 #### Implementação sem paging
-Associado a cada segmento existe informácão que indica o segmento está na memória;
+Associado a cada segmento existe informação que indica o segmento está na memória;
 
 #### Implementação com paging
 Em vez de ter associado uma posição na memória, a informação do segmento inclui um endereço de uma tabela de páginas.
