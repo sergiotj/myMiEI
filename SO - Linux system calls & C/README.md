@@ -161,7 +161,9 @@ Assim, na queue 0 e na queue 1, temos um misto de Round Robin com SJF (RR dentro
 
 ##### Níveis de Escalonamento
 **Nível 0** - despacha o que está na ram;
+
 **Nível 1** - decide que processos são multiprogramados;
+
 **Nível 2** - não deixa criar processos.
 
 À medida que o CPU fica sobrecarregado, o nível de escalonamento aumena.
@@ -172,10 +174,68 @@ Race Condition é quando vários processos alteram os mesmos dados concorrenteme
 Apresentam-se, de seguida, algumas soluções para o problema.
 
 #### Problema da Região Crítica
+Para garantir a coerência dos dados, é preciso que os processos cooperem entre si e acedam ordenadamente aos recursos partilhados.
+Por isso, para um dado recurso partilhado, cada processo declara as regiões do seu código que acedem ao recurso como regiões críticas. E, portanto, a execução da parte correspondente a essa zona por parte de um processo está dependente deste receber garantias de que mais nenhum outro processo estará a executar aquela região.
+
+##### Solução de Peterson
+Funciona com dois processos em que há uma variável "turn" que indica qual dos processos pode entrar na região. Usa-se também um array de flags em que se guarda qual foi o primeiro processo a entrar... O outro processo fica num ciclo de espera até o que está a usar a região chamar a função de saída que vai alterar o array o que faz com que o segundo processo possa entrar na região.
+Pode também fazer sleep em vez de ficar em espera ativa (polling).
 
 #### Semáforos
+Um semáforo S é um inteiro que varia com o uso de funções **wait()** ou **P()** e **signal()** ou **V()**. E, então, o wait decrementa o S enquanto que o signal incrementa o S.
+Existem dois tipos de semáforos: counting semaphores e binary semaphores (variam entre 0 e 1) que também se podem chamar mutex.
+
+Para usar semáforos mutex, usamos wait quando um processo entra na região crítica o que proíbe os outros processos de entrarem já que o S se encontra a 0 e usamos signal quando saímos da zona crítica. Neste momento, outro processo pode entrar.
+
+Os counting semaphores são mais utilizados para controlar o acesso a um recurso limitado. Inicializamos o semáforo com o número de recursos disponíveis e vamos decrementando o número a partir da função wait. Quando não há mais, ao chamarmos wait, reparamos que não há mais recurso uma vez que o sinal estará a 0. O semáforo poderá ser, posteriormente, incrementado a partir da função signal e é aí que poderemos utilizar mais recurso.
+
+O grande problema deste tipo de implementação é que usa polling/espera ativa, uma vez que, o processo que não consegue entrar na região crítica vai esperar indefinidamente até que o semáforo seja incrementado. A estes semáforos também se dá o nome de "spinlock".
+
+Por isso, surge uma nova definição de semáforo em que este deixa de apenas um inteiro e passa a ser uma estrutura que contém um inteiro e uma lista de processos que estão à espera para entrar. Assim, quando se chama signal(), retiramos um processo da lista (wake()) e quando fazemos wait, inserimos um processo na lista (block()).
 
 ## DeadLocks
+É algo que acontece quando um processo nunca consegue sair de um estado de espera, uma vez que está à espera de recursos utilizados por outros processos.
+
+### Condições para que surja um deadlock:
+  - Existir um recurso que não ser partilhado e este está a user usado por um outro processo. Esperam os processos que precisam desse recurso;
+  - Existir um recurso que está a usar um recurso mas espera por recursos adicionais que estão a ser usados por outros processos;
+  - Existir um processo que está à espera de um recurso a ser usado por outro processo que, por sua vez, está à espera de um recurso... <-- Espera circular!!
+
+### Como lidar com os deadlocks:
+  - Assegurar que os deadlocks nunca acontecem;
+  - Permitir que os deadlocks aconteçam mas detetá-los e tratá-los;
 
 ## Memória Central
+Os vários processos devem poder ser executados ao mesmo tempo e, para isso, é preciso dividir a memória entre eles. À medida que os processos entram no sistema, são inseridos numa queue e ficam à espera que o sistema operativo lhes atribua memória.
+
+### Swapping
+Normalmente, a quantidade de RAM necessária por todos os processos ativos é superior à disponível. Por isso, recorre-se a "swapping" que consiste em mover um processo inteiro para a memória quando é executado e, posteriormente para o disco onde é guardado até poder continuar a sua execução. Aliás, maior parte dos processos que se encontram em "idle" estão guardados em disco para não ocuparem espaço na memória (também se pode usar memória virtual).
+Por exemplo: se surge um processo com prioridade elevada, os processos são "swapped" para o disco o que liberta memória para o novo processo. Quando este termina, os processos voltam à RAM.
+
+### Alocação Contígua
+É uma estratégia mais antiga e simples. O sistema operativo vê a quantidade de memória que o próximo processo precisa e vê quanto tem de RAM disponível. Se tiver suficiente, aloca-a de maneira a que fique contígua á que já estava a ser utilizada por outros processos. Se não tiver suficiente, o processo é adicionado a uma queue.
+À medida que os processos terminam, libertam memória para outros. O que acontece é que muitas vezes deixam "buracos" na memória que podem ser pequenos dwmais para o próximo processo da queue e, por isso, o novo processo terá de esperar até que o espaço suficiente fique disponível. Isto pode provocar uma fragmentação externa, que ocorre quando existe espaço livre na memória mas dividido em muitos buracos pequenos o que torna impossível a alocação contígua.
+
+### Segmentação
+É a divisão da memória em segmentos/secções. Os seus endereços lógicos incluem um valor que identifica o segmento e o offset: (<segment-number, offset>). Este tuplo é traduzido por um endereço de memória. Os segmentos também podem ser usados para implementar memória virtual, em que ficam associados a uma flag que indica se este está presente ou não na memória física.
+
+#### Implementação sem paging
+Associado a cada segmento existe informácão que indica o segmento está na memória;
+
+#### Implementação com paging
+Em vez de ter associado uma posição na memória, a informação do segmento inclui um endereço de uma tabela de páginas.
+
 ## Memória Virtual
+A necessidade de memória virtual surge quando os programas eram demasiado grandes para a memória disponível. Assim, divide-se os programas em pedaços a que se dá o nome de overlays.
+Os overlays usados na execução são mantidos na memória e os restantes vão para o disco.
+
+### Paginação
+A alocação de memória não tem de ser contígua e, então, a paginação evita a ocorrência de fragmentação externa. Envolve dividar a memória física em blocos de tamanho fixo aos quais damos o nome de frames e envolve dividir a memória lógica em blocos de tamanho igual chamados pages. Os tamanhos de ambos são definidos pelo hardware.
+
+Cada page precisa de uma frame, por isso, se um processo tiver n pages, precisa de n frames para ser executado. Se isto se verificar, essas n frames serão alocadas. A primeira page vai para uma das frames alocadas e o seu número de frame é guardado na tabela de páginas (repete-se para todas as pages do processo).
+
+Sempre que uma page necessária à execução de um processo não se encontra numa frame, ocorre uma "page fault". Embora as faults sejam normais, quando ocorrem constantemente acontece o "thrashing" que é o fenómeno que causa um impacto grande no desempenho da máquina uma vez que é gasto tempo de CPU a efetuar reposição de páginas.
+
+### Tabela de Páginas
+Inclui o endereço base de cada page da memória física.
+O endereço de base em conjunto com o offset da page definem o endereço da memória física.
