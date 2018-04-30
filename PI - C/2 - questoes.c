@@ -250,3 +250,100 @@ int take (int n, LInt *l){
 
     return contador;
 }
+
+LInt reverseL (LInt l){
+    LInt atual = l;
+    LInt prev = NULL;
+    LInt next = NULL;
+
+    while (atual) {
+
+         next = atual->prox;
+         atual->prox = prev;
+         prev = atual;
+         atual = next;
+    }
+
+    return prev;
+}
+
+void insertOrd (LInt *l, int x){
+
+    LInt atual = *l;
+
+    while (atual && x >= atual->valor) {
+
+        atual = atual->prox;
+        l = &((*l)->prox);
+    }
+
+    LInt toInsert = newLInt(x, atual);
+    (*l) = toInsert;
+
+}
+
+void init (LInt *l){
+
+    LInt atual = *l;
+
+    while (atual->prox) {
+
+        l = &((*l)->prox);
+        atual = atual->prox;
+
+    }
+
+    free(*l);
+    *l = NULL;
+
+}
+
+LInt rotateL (LInt l){
+
+    if (l == NULL || l->prox == NULL) return l;
+
+    LInt toReturn = l->prox;
+    LInt start = toReturn;
+
+    LInt head = l;
+    head->prox = NULL;
+
+    while (toReturn->prox) {
+
+        toReturn = toReturn->prox;
+    }
+
+    toReturn->prox = head;
+
+    return start;
+
+}
+
+
+//////////////// ARVORES
+
+int altura (ABin a){
+
+    int alt = 0;
+    if (!a) return 0;
+
+    if (a) {
+
+        alt = 1 + max(altura(a->esq),altura(a->dir));
+    }
+
+    return alt;
+}
+
+ABin cloneAB (ABin a) {
+
+    ABin nova = NULL;
+
+    if (a) {
+
+        nova = newABin(a->valor, cloneAB(a->esq), cloneAB(a->dir));
+    }
+
+    return nova;
+
+}
