@@ -12,6 +12,7 @@
   - [Software Labs III](https://github.com/marcospgp/wikipedia-metadata-parser) - a wikipedia metadata parser done twice in C and Java.
   - [Object Oriented Programming](https://github.com/marcospgp/umer-poo-1617) - a minimalistic Uber clone in Java.
   - [Operating Systems](https://github.com/marcospgp/stream-processing) - a low level stream processing application written in C.
+  - [CP](https://github.com/sergiotj/category-theory) - project in which we were introduced to point free programming in Haskell.
 
 * **3rd year**:
   - [Software Systems Development & Databases](https://github.com/vitorindeep/schedule-management-system) - a Java application that manages the schedule of practical classes in a given major.
