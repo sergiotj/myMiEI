@@ -18,10 +18,21 @@ public class Counter {
         this.startValue = inicial;
     }
     
-    public void increment() {
+    // Método SYNCHRONIZED
+    public synchronized void increment() {
         
         startValue++;
     }
+    
+    /*
+    // BLOCO SYNCHRONIZED
+    public void increment() {
+        
+        synchronized(this){
+            startValue++;
+        }
+    }	
+    */
     
     public int getValue() {
         

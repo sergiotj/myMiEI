@@ -81,3 +81,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/SD - Distributed Systems/Ficha1/G2E1/nbproject/private/
+/SD - Distributed Systems/Ficha1/G2E1/build/
