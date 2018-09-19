@@ -18,7 +18,7 @@ public class Counter {
         this.startValue = inicial;
     }
     
-    // Método SYNCHRONIZED
+    // Método Synchronized
     public synchronized void increment() {
         
         startValue++;
