@@ -10,29 +10,38 @@ public class Aula1CriarNThreads {
 
         System.out.println("Starting Main Thread...");
 
-        int nAccounts = 10;
-
-        Bank c = new Bank(nAccounts);
-
+        BoundedBuffer buf = new BoundedBuffer(10);
+        
         Thread t1 = new Thread(new Runnable() {
 
+            // PRODUTOR
+            
             @Override
             public void run() {
 
-                // método para o cliente 1 depositar 1000 paus
                 System.out.println("Thread started.");
-                c.depositMoney(1, 1000);
-            }
-        });
+                
+                for(int i = 0; i < 20; i++) {
+                    System.out.println("Metendo o valor " + i);
+                    buf.put(i);
+                }
+                
+            }       
+        });   
+        
 
         Thread t2 = new Thread(new Runnable() {
 
             @Override
             public void run() {
 
-                // método para o cliente 1 levantar 1000 paus
                 System.out.println("Thread started.");
-                c.drawMoney(1, 1000);
+             
+                for(int i = 0; i < 20; i++) {
+                    
+                    buf.get();
+                }
+                
             }
         });
 
@@ -49,8 +58,6 @@ public class Aula1CriarNThreads {
             System.out.println("Exception in main thread");
 
         }
-
-        c.listOfValues();
 
         System.out.println("End of Main Thread...");
     }

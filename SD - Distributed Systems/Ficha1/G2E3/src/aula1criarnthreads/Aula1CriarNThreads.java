@@ -13,15 +13,19 @@ public class Aula1CriarNThreads {
         int nAccounts = 10;
 
         Bank c = new Bank(nAccounts);
+        
+        // mete 1000 na conta 0
+        c.depositMoney(0, 1000);
+        
 
         Thread t1 = new Thread(new Runnable() {
 
             @Override
             public void run() {
 
-                // método para o cliente 1 depositar 1000 paus
+                // método para o cliente 1 depositar 20 paus
                 System.out.println("Thread started.");
-                c.depositMoney(1, 1000);
+                c.transfer(1000, 0, 1);
             }
         });
 
@@ -30,9 +34,9 @@ public class Aula1CriarNThreads {
             @Override
             public void run() {
 
-                // método para o cliente 1 levantar 1000 paus
+                // método para o cliente 1 levantar 20 paus
                 System.out.println("Thread started.");
-                c.drawMoney(1, 1000);
+                c.transfer(1000, 1, 0);
             }
         });
 
