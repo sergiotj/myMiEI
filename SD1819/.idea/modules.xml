@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/G1E1/G1E1.iml" filepath="$PROJECT_DIR$/G1E1/G1E1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G1E2-1/G1E2-1.iml" filepath="$PROJECT_DIR$/G1E2-1/G1E2-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G1E2-2/G1E2-2.iml" filepath="$PROJECT_DIR$/G1E2-2/G1E2-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G2E1/G2E1.iml" filepath="$PROJECT_DIR$/G2E1/G2E1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G2E2/G2E2.iml" filepath="$PROJECT_DIR$/G2E2/G2E2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G2E3/G2E3.iml" filepath="$PROJECT_DIR$/G2E3/G2E3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G2E3RL/G2E3RL.iml" filepath="$PROJECT_DIR$/G2E3RL/G2E3RL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G3E1/G3E1.iml" filepath="$PROJECT_DIR$/G3E1/G3E1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G4E1/G4E1.iml" filepath="$PROJECT_DIR$/G4E1/G4E1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G5E1/G5E1.iml" filepath="$PROJECT_DIR$/G5E1/G5E1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/G5E2/G5E2.iml" filepath="$PROJECT_DIR$/G5E2/G5E2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SD1819.iml" filepath="$PROJECT_DIR$/SD1819.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WarmUp/WarmUp.iml" filepath="$PROJECT_DIR$/WarmUp/WarmUp.iml" />
+    </modules>
+  </component>
+</project>
